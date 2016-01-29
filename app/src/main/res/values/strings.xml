@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Remember</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="new_event">New Event</string>
+    <string name="new_event_time">Time</string>
+    <string name="new_event_address">Address</string>
+    <string name="new_event_thing">Things</string>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_weight="3"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:textSize="50dp"
+        android:text="@string/new_event_time"
+        android:layout_width="match_parent"
+        android:layout_height="50"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </DatePicker>
+        <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </TimePicker>
+
+    </LinearLayout>
+
+    <TextView
+        android:textSize="50dp"
+        android:text="@string/new_event_address"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <EditText
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+
+    <TextView
+        android:textSize="50dp"
+        android:text="@string/new_event_thing"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <EditText
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>
