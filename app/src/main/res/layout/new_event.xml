@@ -4,52 +4,132 @@
               android:layout_weight="3"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <TextView
-        android:textSize="50dp"
-        android:text="@string/new_event_time"
+    <TableLayout
+        android:layout_weight="1"
+        android:stretchColumns="0,2,4,6"
         android:layout_width="match_parent"
-        android:layout_height="50"/>
+        android:layout_height="match_parent">
+        <TextView
+            android:textStyle="normal"
+            android:scrollbarStyle="outsideOverlay"
+            android:textSize="40dp"
+            android:text="@string/new_event_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TableRow>
+            <com.example.weezn.remember.NewEvent.Mynumpicker
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                style="@android:style/Holo.ButtonBar">
 
-    <LinearLayout
-        android:orientation="horizontal"
+            </com.example.weezn.remember.NewEvent.Mynumpicker>
+            <TextView
+                android:textSize="10pt"
+                android:text="月"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <com.example.weezn.remember.NewEvent.Mynumpicker
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+            </com.example.weezn.remember.NewEvent.Mynumpicker>
+
+            <TextView
+                android:textSize="10pt"
+                android:text="日"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <com.example.weezn.remember.NewEvent.Mynumpicker
+                android:id="@+id/hour"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+            </com.example.weezn.remember.NewEvent.Mynumpicker>
+
+            <TextView
+                android:textSize="10pt"
+                android:text="时"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <com.example.weezn.remember.NewEvent.Mynumpicker
+                android:id="@+id/minute"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+            </com.example.weezn.remember.NewEvent.Mynumpicker>
+
+            <TextView
+                android:textSize="10pt"
+                android:text="分"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+        </TableRow>
+
+    </TableLayout>
+
+
+
+    <TableLayout
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <DatePicker
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+        android:layout_height="match_parent">
 
-        </DatePicker>
-        <TimePicker
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+        <TextView
+            android:textStyle="normal"
+            android:scrollbarStyle="outsideOverlay"
+            android:textSize="40dp"
+            android:text="@string/new_event_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/address_edittext"
+            android:hint="@string/address_edit_text"
+            android:background="@color/Yellow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-        </TimePicker>
+    </TableLayout>
 
-    </LinearLayout>
 
-    <TextView
-        android:textSize="50dp"
-        android:text="@string/new_event_address"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
 
-    <EditText
+    <TableLayout
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="match_parent">
 
+        <TextView
+            android:textStyle="normal"
+            android:scrollbarStyle="outsideOverlay"
+            android:textSize="40dp"
+            android:text="@string/new_event_thing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/event_edittext"
+            android:layout_gravity="center"
+            android:hint="@string/event_edit_text"
+            android:background="@color/Yellow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-    <TextView
-        android:textSize="50dp"
-        android:text="@string/new_event_thing"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
-    <EditText
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-
-
+    </TableLayout>
 </LinearLayout>
