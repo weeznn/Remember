@@ -1,8 +1,11 @@
 package com.example.weezn.remember.NewEvent;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.widget.NumberPicker;
 
 import com.example.weezn.remember.R;
@@ -16,8 +19,10 @@ import com.example.weezn.remember.R;
 public class DataActivity extends Activity{
 
     private Mynumpicker mouth,day,hour,min;
+    private int mouthValue,dayValue,hourValue,minValue;
     private String dataAndTime;
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,62 +35,63 @@ public class DataActivity extends Activity{
 
 
         //获取当前系统时间
-        android.text.format.Time time=new android.text.format.Time();
-        final int[] monthValue = {time.month};
-        final int[] dayValue = {time.monthDay};
-        final int[] minuteValue = {time.minute};
-        final int[] hourValue = {time.hour};
+        Time time=new Time();
+        mouthValue=time.month;
+        dayValue=time.monthDay;
+        minValue=time.minute;
+        hourValue=time.hour;
+
 
 
 
         mouth.setBackgroundColor(Color.BLACK);
         mouth.setMinValue(1);
         mouth.setMaxValue(12);
-        mouth.setValue(monthValue[0]);
+        mouth.setValue(mouthValue);
         mouth.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                monthValue[0] = newVal;
+                mouthValue = newVal;
             }
         });
 
         day.setBackgroundColor(Color.BLACK);
         day.setMinValue(1);
         day.setMaxValue(31);
-        day.setValue(dayValue[0]);
+        day.setValue(dayValue);
         day.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                dayValue[0] = newVal;
+                dayValue = newVal;
             }
         });
 
         hour.setBackgroundColor(Color.BLACK);
         hour.setMinValue(1);
         hour.setMaxValue(23);
-        hour.setValue(hourValue[0]);
+        hour.setValue(hourValue);
         hour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                hourValue[0] = newVal;
+                hourValue = newVal;
             }
         });
 
         min.setBackgroundColor(Color.BLACK);
         min.setMinValue(1);
         min.setMaxValue(59);
-        min.setValue(minuteValue[0]);
+        min.setValue(minValue);
         min.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                minuteValue[0] =newVal;
+                minValue =newVal;
             }
         });
 
-        dataAndTime=monthValue[0]+getResources().getString(R.string.mouth)
-                +dayValue[0]+getResources().getString(R.string.day)
-                +hourValue[0]+getResources().getString(R.string.hour)
-                +minuteValue[0]+getResources().getString(R.string.minute);
+        dataAndTime=mouthValue+getResources().getString(R.string.mouth)
+                +dayValue+getResources().getString(R.string.day)
+                +hourValue+getResources().getString(R.string.hour)
+                +minValue+getResources().getString(R.string.minute);
 
 
     }
@@ -93,4 +99,21 @@ public class DataActivity extends Activity{
     public String getDataAndTime() {
         return dataAndTime;
     }
+
+    public int getDayValue() {
+        return dayValue;
+    }
+
+    public int getHourValue() {
+        return hourValue;
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public int getMouthValue() {
+        return mouthValue;
+    }
 }
+

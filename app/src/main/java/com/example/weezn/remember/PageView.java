@@ -45,18 +45,21 @@ public class PageView extends View {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
-        paint.setColor(Color.GREEN);
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        drawpage(canvas);
+        drawText(canvas);
+    }
+
+    public void drawpage(Canvas canvas){
+        paint.setColor(getResources().getColor(R.color.BlueGrey));
         canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(3);
         canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
-        drawText(canvas);
-
-
     }
+
 
     public void setAddressText(String addressText) {
         this.addressText = addressText;
@@ -110,7 +113,7 @@ public class PageView extends View {
         paint.setColor(Color.WHITE);
         paint.setStrokeWidth(2);
         paint.setTextSize(20);
-        canvas.drawText("时间:",20,30,paint);
+        canvas.drawText("时间:"+getTimeText(),20,30,paint);
     }
 
 }

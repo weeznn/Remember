@@ -2,6 +2,7 @@ package com.example.weezn.remember;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.widget.Button;
@@ -58,31 +59,25 @@ public class ButtonView extends Button {
 
         // 画圆形按钮的圆
 
-        paint.setColor(this.getResources().getColor(R.color.Red));
+        paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setStrokeWidth(3);
         canvas.drawCircle(getWidth() / 2,getHeight()-100,raidus, paint);
 
         //画圆形按钮的  +  号
 
-        paint.setColor(this.getResources().getColor(R.color.Whilt));
-        paint.setStrokeWidth(6);
+        paint.setColor(Color.WHITE);
+        paint.setStrokeWidth(10);
         canvas.drawLine(getWidth() / 2 - raidus / 2, getHeight() - 100, getWidth() / 2 + raidus / 2, getHeight() - 100, paint
         );
         canvas.drawLine(getWidth() / 2, getHeight() - 100 - raidus / 2, getWidth() / 2, getHeight() - 100 + raidus / 2, paint);
     }
 
-
-    public int onTouchEvent(){
-        int touchX=(int) getX();
-        int touchY=(int) getY();
-        float dx=getWidth() / 2-touchX;
-        float dy=getHeight()-100-touchY;
-
-        if(dx*dx+dy*dy<raidus*raidus){
-            return 1;
-        }
-        else return 0;
+    @Override
+    public void setOnClickListener(OnClickListener l) {
+        super.setOnClickListener(l);
     }
+
+
 }
 

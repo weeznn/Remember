@@ -1,7 +1,6 @@
 package com.example.weezn.remember.NewEvent;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,10 @@ import android.widget.NumberPicker;
  * @time: 2016/1/30 13:40
  */
 public class Mynumpicker extends NumberPicker {
+
+    private int TextColor;
+    private int LineColor;
+
     public Mynumpicker(Context context) {
         super(context);
     }
@@ -57,15 +60,43 @@ public class Mynumpicker extends NumberPicker {
         updateView(child);
     }
 
+
+
+    /**
+     * 修改字体的颜色
+     * @param view
+     */
     public void updateView(View view) {
         if (view instanceof EditText) {
             //这里修改字体的属性
-            ((EditText) view).setTextColor(Color.parseColor("#FF0000"));
+            ((EditText) view).setTextColor(TextColor);
         }
     }
+
+    /**
+     * 修改下划线的颜色
+     * @param numberPicker
+     */
 
     public void setNumberPickerDividerColor(NumberPicker numberPicker){
 
     }
 
+
+
+    public int getTextColor() {
+        return TextColor;
+    }
+
+    public void setTextColor(int textColor) {
+        TextColor = textColor;
+    }
+
+    public int getLineColor() {
+        return LineColor;
+    }
+
+    public void setLineColor(int lineColor) {
+        LineColor = lineColor;
+    }
 }

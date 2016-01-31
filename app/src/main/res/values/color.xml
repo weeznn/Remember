@@ -4,4 +4,7 @@
     <color name="Yellow">#FFFF33</color>
     <color name="Blue">#00CCFF</color>
     <color name="Whilt">#FFFFFF</color>
+    <color name="BlueGrey">@color/material_blue_grey_800</color>
+    <color name="Grey">#668B8B</color>
+
 </resources>

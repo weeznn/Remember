@@ -22,6 +22,11 @@ public class EventActivity extends Activity {
         event=editText.getText().toString();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     public String getEvent() {
         return event;
     }
