@@ -44,6 +44,7 @@ public class DataActivity extends Activity{
 
 
 
+
         mouth.setBackgroundColor(Color.BLACK);
         mouth.setMinValue(1);
         mouth.setMaxValue(12);
@@ -54,6 +55,13 @@ public class DataActivity extends Activity{
                 mouthValue = newVal;
             }
         });
+        mouth.setOnScrollListener(new NumberPicker.OnScrollListener() {
+            @Override
+            public void onScrollStateChange(NumberPicker view, int scrollState) {
+
+            }
+        });
+
 
         day.setBackgroundColor(Color.BLACK);
         day.setMinValue(1);

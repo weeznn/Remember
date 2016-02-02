@@ -1,6 +1,7 @@
 package com.example.weezn.remember.NewEvent;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,9 @@ import android.widget.NumberPicker;
  */
 public class Mynumpicker extends NumberPicker {
 
-    private int TextColor;
-    private int LineColor;
+    private int TextColor= Color.RED;
+    private int LineColor=Color.BLUE;
+
 
     public Mynumpicker(Context context) {
         super(context);
@@ -75,12 +77,22 @@ public class Mynumpicker extends NumberPicker {
 
     /**
      * 修改下划线的颜色
-     * @param numberPicker
      */
 
-    public void setNumberPickerDividerColor(NumberPicker numberPicker){
+    private void setNumberPickerLineColor() {
 
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

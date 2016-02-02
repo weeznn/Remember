@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                style="@android:style/Holo.ButtonBar">
+                >
 
             </com.example.weezn.remember.NewEvent.Mynumpicker>
             <TextView
