@@ -14,21 +14,21 @@ import android.widget.NumberPicker;
  * @author: weezn
  * @time: 2016/1/30 13:40
  */
-public class Mynumpicker extends NumberPicker {
+public class Numpicker extends NumberPicker {
 
     private int TextColor= Color.RED;
     private int LineColor=Color.BLUE;
 
 
-    public Mynumpicker(Context context) {
+    public Numpicker(Context context) {
         super(context);
     }
 
-    public Mynumpicker(Context context, AttributeSet attrs) {
+    public Numpicker(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public Mynumpicker(Context context, AttributeSet attrs, int defStyleAttr) {
+    public Numpicker(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

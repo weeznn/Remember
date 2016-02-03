@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.example.weezn.remember.R;
 
@@ -18,7 +19,7 @@ import com.example.weezn.remember.R;
  */
 public class DataActivity extends Activity{
 
-    private Mynumpicker mouth,day,hour,min;
+    private NumberPicker mouth,day,hour,min;
     private int mouthValue,dayValue,hourValue,minValue;
     private String dataAndTime;
 
@@ -28,10 +29,10 @@ public class DataActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_event);
 
-        mouth=(Mynumpicker)findViewById(R.id.month);
-        day=(Mynumpicker)findViewById(R.id.day);
-        hour=(Mynumpicker)findViewById(R.id.hour);
-        min=(Mynumpicker)findViewById(R.id.minute);
+        mouth=(NumberPicker)findViewById(R.id.month);
+        day=(NumberPicker)findViewById(R.id.day);
+        hour=(NumberPicker)findViewById(R.id.hour);
+        min=(NumberPicker)findViewById(R.id.minute);
 
 
         //获取当前系统时间
@@ -53,12 +54,13 @@ public class DataActivity extends Activity{
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 mouthValue = newVal;
+                showSelectedTimeAndData();
             }
         });
         mouth.setOnScrollListener(new NumberPicker.OnScrollListener() {
             @Override
             public void onScrollStateChange(NumberPicker view, int scrollState) {
-
+                scrollState=SCROLL_STATE_FLING;
             }
         });
 
@@ -71,6 +73,7 @@ public class DataActivity extends Activity{
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 dayValue = newVal;
+                showSelectedTimeAndData();
             }
         });
 
@@ -82,6 +85,7 @@ public class DataActivity extends Activity{
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 hourValue = newVal;
+                showSelectedTimeAndData();
             }
         });
 
@@ -93,6 +97,7 @@ public class DataActivity extends Activity{
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 minValue =newVal;
+                showSelectedTimeAndData();
             }
         });
 
@@ -122,6 +127,14 @@ public class DataActivity extends Activity{
 
     public int getMouthValue() {
         return mouthValue;
+    }
+
+    private void  showSelectedTimeAndData(){
+        Toast.makeText(this,this.getResources().getString(R.string.new_event_data__and_time_show_text)+
+                       mouthValue+this.getResources().getString(R.string.mouth)+
+                       dayValue+this.getResources().getString(R.string.day)+
+                       hourValue+this.getResources().getString(R.string.hour)
+                        +minValue+this.getResources().getString(R.string.minute),Toast.LENGTH_SHORT);
     }
 }
 

@@ -17,9 +17,9 @@ public class PageView extends View {
     private Paint paint;
 
 
-    private String timeText;//时间
-    private String addressText;//地点
-    private String eventText;//事件
+    private String timeText="";//时间
+    private String addressText="";//地点
+    private String eventText="";//事件
     private int timeTextColor;//颜色
     private int addressTextColor;
     private int eventTextCoor;
@@ -48,14 +48,17 @@ public class PageView extends View {
     public void init(){
         paint=new Paint();
         paint.setAntiAlias(true);
-        isempty=false;
+        isempty=true;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawpage(canvas);
-        drawText(canvas);
+        if(!this.isempty()){
+            drawText(canvas);
+        }
+
     }
 
     public void drawpage(Canvas canvas){
@@ -102,12 +105,12 @@ public class PageView extends View {
 
     public void drawText(Canvas canvas){
         paint.setColor(Color.WHITE);
-        paint.setStrokeWidth(2);
-        paint.setTextSize(20);
+        paint.setStrokeWidth(1);
+        paint.setTextSize(30);
         space=50;
-        canvas.drawText("时间:"+getTimeText(),10,50,paint);
-        canvas.drawText("地点：" + getAddressText(), 10, 50 + space, paint);
-        canvas.drawText("事情："+getEventText(),10,50+2*space,paint);
+        canvas.drawText("时间:"+timeText,10,50,paint);
+        canvas.drawText("地点：" + addressText, 10, 50 + space, paint);
+        canvas.drawText("事情："+eventText,10,50+2*space,paint);
     }
 
     public boolean isempty() {
