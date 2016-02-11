@@ -14,6 +14,8 @@ import android.view.View;
  * @time: 2016/1/29 15:12
  */
 public class PageView extends View {
+
+    public final static String TAG="PageView";
     private Paint paint;
 
 
@@ -24,11 +26,11 @@ public class PageView extends View {
     private int addressTextColor;
     private int eventTextCoor;
 
-    private boolean isempty;
+    private boolean isempty;//该page是否有事件
 
     private int space;//信息之间的间隔
 
-    private PageView pageViewLast;//将最后一个展示页设置为  设置
+
 
     public PageView(Context context) {
         super(context);

@@ -16,6 +16,7 @@ import android.widget.NumberPicker;
  */
 public class Numpicker extends NumberPicker {
 
+    public final static String TAG="Numpicker";
     private int TextColor= Color.RED;
     private int LineColor=Color.BLUE;
 

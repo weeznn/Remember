@@ -2,7 +2,7 @@ package com.example.weezn.remember.NewEvent;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -17,10 +17,11 @@ import com.example.weezn.remember.R;
  * @author: weezn
  * @time: 2016/1/30 13:10
  */
-public class DataActivity extends Activity{
+public class DataActivity extends Activity {
 
-    private NumberPicker mouth,day,hour,min;
-    private int mouthValue,dayValue,hourValue,minValue;
+    public final static String TAG="DataActivity";
+    private NumberPicker mouth, day, hour, min;
+    private int mouthValue, dayValue, hourValue, minValue;
     private String dataAndTime;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -29,43 +30,38 @@ public class DataActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_event);
 
-        mouth=(NumberPicker)findViewById(R.id.month);
-        day=(NumberPicker)findViewById(R.id.day);
-        hour=(NumberPicker)findViewById(R.id.hour);
-        min=(NumberPicker)findViewById(R.id.minute);
+        mouth = (NumberPicker) findViewById(R.id.month);
+        day = (NumberPicker) findViewById(R.id.day);
+        hour = (NumberPicker) findViewById(R.id.hour);
+        min = (NumberPicker) findViewById(R.id.minute);
 
 
         //获取当前系统时间
-        Time time=new Time();
-        mouthValue=time.month;
-        dayValue=time.monthDay;
-        minValue=time.minute;
-        hourValue=time.hour;
+        Time time = new Time();
+        mouthValue = time.month;
+        dayValue = time.monthDay;
+        minValue = time.minute;
+        hourValue = time.hour;
 
 
-
-
-
-        mouth.setBackgroundColor(Color.BLACK);
+        //设置数值选择器  月份
+        mouth.setBackgroundColor(getResources().getColor(R.color.Grey));
         mouth.setMinValue(1);
         mouth.setMaxValue(12);
         mouth.setValue(mouthValue);
         mouth.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
                 mouthValue = newVal;
                 showSelectedTimeAndData();
             }
         });
-        mouth.setOnScrollListener(new NumberPicker.OnScrollListener() {
-            @Override
-            public void onScrollStateChange(NumberPicker view, int scrollState) {
-                scrollState=SCROLL_STATE_FLING;
-            }
-        });
 
 
-        day.setBackgroundColor(Color.BLACK);
+
+        //设置数值选择器  天
+        day.setBackgroundColor(getResources().getColor(R.color.Grey));
         day.setMinValue(1);
         day.setMaxValue(31);
         day.setValue(dayValue);
@@ -77,7 +73,9 @@ public class DataActivity extends Activity{
             }
         });
 
-        hour.setBackgroundColor(Color.BLACK);
+
+        //设置数值选择器  时
+        hour.setBackgroundColor(getResources().getColor(R.color.Grey));
         hour.setMinValue(1);
         hour.setMaxValue(23);
         hour.setValue(hourValue);
@@ -89,22 +87,37 @@ public class DataActivity extends Activity{
             }
         });
 
-        min.setBackgroundColor(Color.BLACK);
+
+
+
+        //设置数值选择器  分
+        min.setBackgroundColor(getResources().getColor(R.color.Grey));
         min.setMinValue(1);
         min.setMaxValue(59);
         min.setValue(minValue);
         min.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                minValue =newVal;
+                minValue = newVal;
                 showSelectedTimeAndData();
             }
         });
 
-        dataAndTime=mouthValue+getResources().getString(R.string.mouth)
-                +dayValue+getResources().getString(R.string.day)
-                +hourValue+getResources().getString(R.string.hour)
-                +minValue+getResources().getString(R.string.minute);
+
+
+        dataAndTime = mouthValue + getResources().getString(R.string.mouth)
+                + dayValue + getResources().getString(R.string.day)
+                + hourValue + getResources().getString(R.string.hour)
+                + minValue + getResources().getString(R.string.minute);
+
+        //返回时间和日期
+        Intent intent=getIntent();
+        intent.putExtra("dataandtime",dataAndTime);
+        intent.putExtra("mouth", mouthValue);
+        intent.putExtra("day", dayValue);
+        intent.putExtra("hour", hourValue);
+        intent.putExtra("minute", minValue);
+        setResult(0,intent);
 
 
     }
@@ -129,12 +142,12 @@ public class DataActivity extends Activity{
         return mouthValue;
     }
 
-    private void  showSelectedTimeAndData(){
-        Toast.makeText(this,this.getResources().getString(R.string.new_event_data__and_time_show_text)+
-                       mouthValue+this.getResources().getString(R.string.mouth)+
-                       dayValue+this.getResources().getString(R.string.day)+
-                       hourValue+this.getResources().getString(R.string.hour)
-                        +minValue+this.getResources().getString(R.string.minute),Toast.LENGTH_SHORT);
+    private void showSelectedTimeAndData() {
+        Toast.makeText(this, this.getResources().getString(R.string.new_event_data__and_time_show_text) +
+                mouthValue + this.getResources().getString(R.string.mouth) +
+                dayValue + this.getResources().getString(R.string.day) +
+                hourValue + this.getResources().getString(R.string.hour)
+                + minValue + this.getResources().getString(R.string.minute), Toast.LENGTH_SHORT).show();
     }
 }
 

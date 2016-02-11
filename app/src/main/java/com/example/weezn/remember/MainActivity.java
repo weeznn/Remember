@@ -9,15 +9,11 @@ import com.example.weezn.remember.NewEvent.NewEventActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    public final static String TAG="MainActivity";
     private ButtonView buttunView;
 
+    private int mouth,day,hour,minute; //新建提醒的时间
 
-    //新建提醒的时间，地点，内容
-    private String dataAndTime;
-    private String address;
-    private String event;
-    private int mouth,day,hour,minute;
-    private PageView pageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
-                //startActivityForResult(intent, 0);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
+//                startActivity(intent);
+
+
             }
         });
 
@@ -52,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==0&&requestCode==0){
             Bundle bundle=data.getExtras();
-            dataAndTime=bundle.getString("dataandtime");
-            address=bundle.getString("address");
-            event=bundle.getString("event");
 
             mouth=bundle.getInt("mouth");
             day=bundle.getInt("day");

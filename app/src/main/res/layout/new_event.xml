@@ -30,12 +30,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
-                >
+                android:focusableInTouchMode="true">
 
             </NumberPicker>
             <TextView
-                android:textSize="10pt"
+                android:textSize="8pt"
                 android:text="月"
                 android:gravity="center"
                 android:layout_width="wrap_content"
@@ -47,11 +46,10 @@
                 android:layout_height="match_parent"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
-
             </NumberPicker>
 
             <TextView
-                android:textSize="10pt"
+                android:textSize="8pt"
                 android:text="日"
                 android:gravity="center"
                 android:layout_width="wrap_content"
@@ -67,7 +65,7 @@
             </NumberPicker>
 
             <TextView
-                android:textSize="10pt"
+                android:textSize="8pt"
                 android:text="时"
                 android:gravity="center"
                 android:layout_width="wrap_content"
@@ -83,7 +81,7 @@
             </NumberPicker>
 
             <TextView
-                android:textSize="10pt"
+                android:textSize="8pt"
                 android:text="分"
                 android:gravity="center"
                 android:layout_width="match_parent"
@@ -126,7 +124,7 @@
             android:textSize="40dp"
             android:text="@string/new_event_thing"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="50dp"/>
         <EditText
             android:id="@+id/event_edittext"
             android:hint="@string/event_edit_text"
