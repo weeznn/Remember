@@ -35,9 +35,7 @@ public class NewEventActivity extends Activity {
 
     private PageView[] pageViews;
 
-    //    private DataActivity dataActivity;//新建事件的日期和时间
-    //    private AddressActivity addressActivity;//新建事件的地址
-    //    private EventActivity eventActivity;//新建事件的内容
+
 
     private String dataAndTime;
     private String address;
@@ -69,12 +67,6 @@ public class NewEventActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent();
-                intent.putExtra("mouth", mouth);
-                intent.putExtra("day", day);
-                intent.putExtra("hour", hour);
-                intent.putExtra("minute", minute);
-//                startActivity(intent);
 
                 //将新建事件显示在主页
                 show();
@@ -83,10 +75,21 @@ public class NewEventActivity extends Activity {
                 finishActivity(1);
                 finishActivity(2);
 
+
+                Intent intent = new Intent();
+                intent.putExtra("mouth", mouth);
+                intent.putExtra("day", day);
+                intent.putExtra("hour", hour);
+                intent.putExtra("minute", minute);
+//                startActivity(intent);
+                setResult(0,intent);
+
+
+
+//                finish();
             }
         });
 
-        finish();
 
     }
 
@@ -98,22 +101,7 @@ public class NewEventActivity extends Activity {
     }
 
 
-    //    /**
-    //     * 得到新提醒的时间，地点，内容并传给MainAvtivity
-    //     */
-    //    public void returndata(){
-    //        Intent intent=getIntent();
-    //            intent.putExtra("dataandtime",dataActivity.getDataAndTime());
-    //            intent.putExtra("mouth",dataActivity.getMouthValue());
-    //            intent.putExtra("day",dataActivity.getDayValue());
-    //            intent.putExtra("hour",dataActivity.getHourValue());
-    //            intent.putExtra("minute",dataActivity.getMinValue());
-    //        intent.putExtra("address",addressActivity.getAddress());
-    //        intent.putExtra("event", eventActivity.getEvent());
-    //        NewEventActivity.this.setResult(0, intent);
-    //
-    //        NewEventActivity.this.onDestroy();
-    //    }
+
 
 
     private void init() {
@@ -144,7 +132,10 @@ public class NewEventActivity extends Activity {
                 pageViews[i].setAddressText(String.format(address));
                 pageViews[i].setTimeText(String.format(dataAndTime));
                 pageViews[i].setEventText(String.format(event));
+
                 pageViews[i].setIsempty(false);//将该page置为有事件
+
+                pageViews[i].invalidate();//刷新该page页面
             }
             break;
         }

@@ -38,6 +38,7 @@ public class DataActivity extends Activity {
 
         //获取当前系统时间
         Time time = new Time();
+        time.setToNow();
         mouthValue = time.month;
         dayValue = time.monthDay;
         minValue = time.minute;
@@ -54,7 +55,7 @@ public class DataActivity extends Activity {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
                 mouthValue = newVal;
-                showSelectedTimeAndData();
+                //                showSelectedTimeAndData();
             }
         });
 
@@ -69,7 +70,7 @@ public class DataActivity extends Activity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 dayValue = newVal;
-                showSelectedTimeAndData();
+                //                showSelectedTimeAndData();
             }
         });
 
@@ -83,7 +84,7 @@ public class DataActivity extends Activity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 hourValue = newVal;
-                showSelectedTimeAndData();
+                //                showSelectedTimeAndData();
             }
         });
 
@@ -99,7 +100,16 @@ public class DataActivity extends Activity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 minValue = newVal;
-                showSelectedTimeAndData();
+
+            }
+        });
+
+        min.setOnScrollListener(new NumberPicker.OnScrollListener() {
+            @Override
+            public void onScrollStateChange(NumberPicker view, int scrollState) {
+                if(scrollState==SCROLL_STATE_IDLE){
+                    showSelectedTimeAndData();
+                }
             }
         });
 
@@ -143,6 +153,8 @@ public class DataActivity extends Activity {
     }
 
     private void showSelectedTimeAndData() {
+
+
         Toast.makeText(this, this.getResources().getString(R.string.new_event_data__and_time_show_text) +
                 mouthValue + this.getResources().getString(R.string.mouth) +
                 dayValue + this.getResources().getString(R.string.day) +

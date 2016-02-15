@@ -50,7 +50,7 @@ public class PageView extends View {
     public void init(){
         paint=new Paint();
         paint.setAntiAlias(true);
-        isempty=true;
+        isempty=true;//每个页面都是空的
     }
 
     @Override
@@ -122,5 +122,7 @@ public class PageView extends View {
     public void setIsempty(boolean isempty) {
         this.isempty = isempty;
     }
+
+
 }
 
