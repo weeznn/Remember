@@ -18,10 +18,10 @@ public class DeskTopApp extends AppWidgetProvider {
 
     private static final String TAG="DeskTopApp";
 
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-
         //创建RemoteViews对象，指定加载的界面布局文件
         RemoteViews remoteViews=new RemoteViews(context.getPackageName(), R.layout.activity_main);
 
@@ -29,5 +29,20 @@ public class DeskTopApp extends AppWidgetProvider {
         ComponentName componentName=new ComponentName(context,DeskTopApp.class);
         //
         appWidgetManager.updateAppWidget(componentName,remoteViews);
+    }
+
+    @Override
+    public void onEnabled(Context context) {
+        super.onEnabled(context);
+    }
+
+    @Override
+    public void onDisabled(Context context) {
+        super.onDisabled(context);
+    }
+
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
     }
 }

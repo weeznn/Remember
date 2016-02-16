@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.weezn.remember" >
+<manifest package="com.example.weezn.remember"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
         <activity
-            android:theme="@style/AppTheme"
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".NewEvent.NewEventActivity"
+        <activity
+            android:name=".NewEvent.NewEventActivity"
             android:label="@string/new_event">
 
         </activity>
 
         <activity android:name=".NewEvent.DataActivity"
-           >
+            >
 
         </activity>
 
@@ -34,12 +34,11 @@
 
         </activity>
 
-        <receiver android:name=".Desk.DeskTopApp"
-                  android:label="@string/app_name">
+        <receiver
+            android:name=".Desk.DeskTopApp"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE">
-
-                </action>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
 
             </intent-filter>
 
@@ -47,6 +46,7 @@
                 android:name="android.appwidget.AppWidgetProvider"
                 android:resource="@xml/appwidge_provider">
             </meta-data>
+
         </receiver>
 
     </application>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.Time;
+import android.util.Log;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
@@ -27,6 +28,9 @@ public class DataActivity extends Activity {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.i(TAG,"onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_event);
 
@@ -39,7 +43,7 @@ public class DataActivity extends Activity {
         //获取当前系统时间
         Time time = new Time();
         time.setToNow();
-        mouthValue = time.month;
+        mouthValue = time.month+1;//系统月份为0~11
         dayValue = time.monthDay;
         minValue = time.minute;
         hourValue = time.hour;
@@ -100,18 +104,11 @@ public class DataActivity extends Activity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 minValue = newVal;
-
+                //                showSelectedTimeAndData();
             }
         });
 
-        min.setOnScrollListener(new NumberPicker.OnScrollListener() {
-            @Override
-            public void onScrollStateChange(NumberPicker view, int scrollState) {
-                if(scrollState==SCROLL_STATE_IDLE){
-                    showSelectedTimeAndData();
-                }
-            }
-        });
+
 
 
 
@@ -119,7 +116,22 @@ public class DataActivity extends Activity {
                 + dayValue + getResources().getString(R.string.day)
                 + hourValue + getResources().getString(R.string.hour)
                 + minValue + getResources().getString(R.string.minute);
+        result();
 
+//        //返回时间和日期
+//        Intent intent=getIntent();
+//        intent.putExtra("dataandtime",dataAndTime);
+//        intent.putExtra("mouth", mouthValue);
+//        intent.putExtra("day", dayValue);
+//        intent.putExtra("hour", hourValue);
+//        intent.putExtra("minute", minValue);
+//        DataActivity.this.setResult(0, intent);
+//
+//        Log.i(TAG, dataAndTime);
+//        DataActivity.this.finish();
+    }
+
+    private void result(){
         //返回时间和日期
         Intent intent=getIntent();
         intent.putExtra("dataandtime",dataAndTime);
@@ -127,9 +139,9 @@ public class DataActivity extends Activity {
         intent.putExtra("day", dayValue);
         intent.putExtra("hour", hourValue);
         intent.putExtra("minute", minValue);
-        setResult(0,intent);
+        DataActivity.this.setResult(0, intent);
 
-
+        Log.i(TAG, dataAndTime);
     }
 
     public String getDataAndTime() {

@@ -3,6 +3,7 @@ package com.example.weezn.remember.NewEvent;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.example.weezn.remember.R;
@@ -19,15 +20,17 @@ public class EventActivity extends Activity {
     private String event;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG,"oncreat");
         super.onCreate(savedInstanceState);
         editText=(EditText)findViewById(R.id.event_edittext);
         event=editText.getText().toString();
 
         Intent intent=getIntent();
         intent.putExtra("event", event);
-        setResult(2,intent);
+        EventActivity.this.setResult(2, intent);
 
-
+        Log.i(TAG, event);
+//        EventActivity.this.finish();
     }
 
     @Override

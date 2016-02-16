@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:minWidth="100dp"
-                    android:minHeight="50dp"
-                    android:updatePeriodMillis="1000000"
-                    android:initialLayout="@layout/activity_main"
 
-    >
+<appwidget-provider
+    android:initialLayout="@layout/activity_main"
+    android:minHeight="150dp"
+    android:minWidth="50dp"
+    android:updatePeriodMillis="1000000"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 </appwidget-provider>
+
 
 

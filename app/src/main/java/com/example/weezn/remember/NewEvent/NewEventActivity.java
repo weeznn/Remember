@@ -36,11 +36,15 @@ public class NewEventActivity extends Activity {
     private PageView[] pageViews;
 
 
-
     private String dataAndTime;
     private String address;
     private String event;
     private int mouth, day, hour, minute;
+
+
+//    private DataActivity dataActivity;
+//    private AddressActivity addressActivity;
+//    private EventActivity eventActivity;
 
 
     @Override
@@ -51,6 +55,7 @@ public class NewEventActivity extends Activity {
 
         //初始化
         init();
+
 
         Intent intentTimeAndData = new Intent(NewEventActivity.this, DataActivity.class);
         startActivityForResult(intentTimeAndData, 0);
@@ -75,18 +80,14 @@ public class NewEventActivity extends Activity {
                 finishActivity(1);
                 finishActivity(2);
 
-
+                //设置返回MainActivity的intent
                 Intent intent = new Intent();
                 intent.putExtra("mouth", mouth);
                 intent.putExtra("day", day);
                 intent.putExtra("hour", hour);
                 intent.putExtra("minute", minute);
-//                startActivity(intent);
-                setResult(0,intent);
+                NewEventActivity.this.setResult(0, intent);
 
-
-
-//                finish();
             }
         });
 
@@ -99,9 +100,6 @@ public class NewEventActivity extends Activity {
         Log.i(TAG, "onstart");
         super.onStart();
     }
-
-
-
 
 
     private void init() {
@@ -154,6 +152,7 @@ public class NewEventActivity extends Activity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i(TAG,"onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
         Bundle bundle = data.getExtras();
 
@@ -175,5 +174,11 @@ public class NewEventActivity extends Activity {
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, dataAndTime);
+        Log.i(TAG, address);
+        Log.i(TAG, event);
+    }
 }

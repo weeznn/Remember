@@ -3,6 +3,7 @@ package com.example.weezn.remember.NewEvent;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.example.weezn.remember.R;
@@ -19,6 +20,8 @@ public class AddressActivity extends Activity {
     private String address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.i(TAG,"oncreat");
         super.onCreate(savedInstanceState);
 
         editText=(EditText)findViewById(R.id.address_edittext);
@@ -26,9 +29,10 @@ public class AddressActivity extends Activity {
 
         //返回地点
         Intent intent=getIntent();
-        intent.putExtra("address",address);
-        setResult(1,intent);
-
+        intent.putExtra("address", address);
+        AddressActivity.this.setResult(1, intent);
+        Log.i(TAG, address);
+//        AddressActivity.this.finish();
 
     }
 

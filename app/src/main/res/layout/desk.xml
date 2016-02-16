@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/BlueGrey"
+              android:layout_width="match_parent"
+              android:layout_height="150dp">
+   <TextView
+       android:id="@+id/desk0"
+       android:background="@color/BlueGrey"
+       android:layout_width="match_parent"
+       android:layout_height="50dp"/>
+    <TextView
+        android:id="@+id/desk1"
+        android:background="@color/BlueGrey"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <TextView
+        android:id="@+id/desk2"
+        android:background="@color/BlueGrey"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+
+
+
+</LinearLayout>
