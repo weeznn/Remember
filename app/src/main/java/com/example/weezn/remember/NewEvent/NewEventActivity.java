@@ -150,6 +150,7 @@ public class NewEventActivity extends Activity {
     }
 
 
+
     /**
      * 获取时间地点事件
      *
