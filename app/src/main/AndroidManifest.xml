@@ -19,6 +19,7 @@
             android:name=".NewEvent.NewEventActivity"
             android:label="@string/new_event">
 
+
         </activity>
 
         <activity android:name=".NewEvent.DataActivity"

@@ -25,6 +25,9 @@ public class DataActivity extends Activity {
     private int mouthValue, dayValue, hourValue, minValue;
     private String dataAndTime;
 
+
+
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +61,25 @@ public class DataActivity extends Activity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
+                Log.i(TAG, "mouth"+String.valueOf(newVal+oldVal));
                 mouthValue = newVal;
-                //                showSelectedTimeAndData();
             }
         });
+      mouth.setOnScrollListener(new NumberPicker.OnScrollListener() {
+
+          @Override
+          public void onScrollStateChange(NumberPicker view, int scrollState) {
+              switch (scrollState) {
+                  case SCROLL_STATE_FLING:
+                      break;
+                  case SCROLL_STATE_TOUCH_SCROLL:
+                      break;
+                  case SCROLL_STATE_IDLE:
+                      showSelectedTimeAndData();
+                      break;
+              }
+          }
+      });
 
 
 
@@ -73,8 +91,23 @@ public class DataActivity extends Activity {
         day.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                Log.i(TAG, "day"+String.valueOf(newVal+oldVal));
                 dayValue = newVal;
-                //                showSelectedTimeAndData();
+            }
+        });
+
+        day.setOnScrollListener(new NumberPicker.OnScrollListener() {
+            @Override
+            public void onScrollStateChange(NumberPicker view, int scrollState) {
+                switch (scrollState) {
+                    case SCROLL_STATE_FLING:
+                        break;
+                    case SCROLL_STATE_TOUCH_SCROLL:
+                        break;
+                    case SCROLL_STATE_IDLE:
+                        showSelectedTimeAndData();
+                        break;
+                }
             }
         });
 
@@ -87,11 +120,25 @@ public class DataActivity extends Activity {
         hour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                Log.i(TAG, "hour"+String.valueOf(newVal+oldVal));
                 hourValue = newVal;
-                //                showSelectedTimeAndData();
             }
         });
 
+        hour.setOnScrollListener(new NumberPicker.OnScrollListener() {
+            @Override
+            public void onScrollStateChange(NumberPicker view, int scrollState) {
+                switch (scrollState) {
+                    case SCROLL_STATE_FLING:
+                        break;
+                    case SCROLL_STATE_TOUCH_SCROLL:
+                        break;
+                    case SCROLL_STATE_IDLE:
+                        showSelectedTimeAndData();
+                        break;
+                }
+            }
+        });
 
 
 
@@ -103,12 +150,31 @@ public class DataActivity extends Activity {
         min.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                Log.i(TAG, "min" + String.valueOf(newVal + oldVal));
                 minValue = newVal;
-                //                showSelectedTimeAndData();
+            }
+        });
+
+        min.setOnScrollListener(new NumberPicker.OnScrollListener() {
+            @Override
+            public void onScrollStateChange(NumberPicker view, int scrollState) {
+                switch (scrollState) {
+                    case SCROLL_STATE_FLING:
+                        break;
+                    case SCROLL_STATE_TOUCH_SCROLL:
+                        break;
+                    case SCROLL_STATE_IDLE:
+                        showSelectedTimeAndData();
+                        break;
+                }
             }
         });
 
 
+        mouthValue=mouth.getValue();
+        dayValue=day.getValue();
+        hourValue=hour.getValue();
+        minValue=min.getValue();
 
 
 
@@ -116,22 +182,10 @@ public class DataActivity extends Activity {
                 + dayValue + getResources().getString(R.string.day)
                 + hourValue + getResources().getString(R.string.hour)
                 + minValue + getResources().getString(R.string.minute);
-        result();
 
-//        //返回时间和日期
-//        Intent intent=getIntent();
-//        intent.putExtra("dataandtime",dataAndTime);
-//        intent.putExtra("mouth", mouthValue);
-//        intent.putExtra("day", dayValue);
-//        intent.putExtra("hour", hourValue);
-//        intent.putExtra("minute", minValue);
-//        DataActivity.this.setResult(0, intent);
-//
-//        Log.i(TAG, dataAndTime);
-//        DataActivity.this.finish();
-    }
 
-    private void result(){
+
+
         //返回时间和日期
         Intent intent=getIntent();
         intent.putExtra("dataandtime",dataAndTime);
@@ -142,7 +196,10 @@ public class DataActivity extends Activity {
         DataActivity.this.setResult(0, intent);
 
         Log.i(TAG, dataAndTime);
+
     }
+
+
 
     public String getDataAndTime() {
         return dataAndTime;
@@ -173,5 +230,8 @@ public class DataActivity extends Activity {
                 hourValue + this.getResources().getString(R.string.hour)
                 + minValue + this.getResources().getString(R.string.minute), Toast.LENGTH_SHORT).show();
     }
+
+
+
 }
 

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.weezn.remember.MainActivity;
 import com.example.weezn.remember.PageView;
 import com.example.weezn.remember.R;
 
@@ -46,6 +47,11 @@ public class NewEventActivity extends Activity {
 //    private AddressActivity addressActivity;
 //    private EventActivity eventActivity;
 
+//    mouth=dataActivity.getMouthValue();
+//    day=dataActivity.getDayValue();
+//    hour=dataActivity.getHourValue();
+//    minute=dataActivity.getMinValue();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,7 @@ public class NewEventActivity extends Activity {
 
         //初始化
         init();
+
 
 
         Intent intentTimeAndData = new Intent(NewEventActivity.this, DataActivity.class);
@@ -81,7 +88,7 @@ public class NewEventActivity extends Activity {
                 finishActivity(2);
 
                 //设置返回MainActivity的intent
-                Intent intent = new Intent();
+                Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
                 intent.putExtra("mouth", mouth);
                 intent.putExtra("day", day);
                 intent.putExtra("hour", hour);
@@ -91,8 +98,8 @@ public class NewEventActivity extends Activity {
             }
         });
 
-
     }
+
 
 
     @Override
@@ -181,4 +188,6 @@ public class NewEventActivity extends Activity {
         Log.i(TAG, address);
         Log.i(TAG, event);
     }
+
+
 }
