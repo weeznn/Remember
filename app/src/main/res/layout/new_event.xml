@@ -108,6 +108,7 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/address_edittext"
+            android:imeOptions="actionNext"
             android:hint="@string/address_edit_text"
             android:background="@color/Grey"
             android:layout_width="match_parent"
@@ -128,12 +129,12 @@
         <EditText
             android:id="@+id/event_edittext"
             android:hint="@string/event_edit_text"
+            android:imeOptions="actionDone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
 
     <Button
-        android:onClick="new_event"
         android:id="@+id/new_event_button"
         android:textSize="20dp"
         android:text="新建提醒事件"

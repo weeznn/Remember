@@ -20,12 +20,11 @@ import com.example.weezn.remember.R;
  */
 public class DataActivity extends Activity {
 
+
     public final static String TAG="DataActivity";
     private NumberPicker mouth, day, hour, min;
     private int mouthValue, dayValue, hourValue, minValue;
     private String dataAndTime;
-
-
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -41,7 +40,6 @@ public class DataActivity extends Activity {
         day = (NumberPicker) findViewById(R.id.day);
         hour = (NumberPicker) findViewById(R.id.hour);
         min = (NumberPicker) findViewById(R.id.minute);
-
 
         //获取当前系统时间
         Time time = new Time();
@@ -61,8 +59,8 @@ public class DataActivity extends Activity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
-                Log.i(TAG, "mouth"+String.valueOf(newVal+oldVal));
                 mouthValue = newVal;
+                Log.i(TAG,"shijian  yue:"+mouthValue);
             }
         });
       mouth.setOnScrollListener(new NumberPicker.OnScrollListener() {
@@ -91,8 +89,8 @@ public class DataActivity extends Activity {
         day.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.i(TAG, "day"+String.valueOf(newVal+oldVal));
                 dayValue = newVal;
+                Log.i(TAG,"shijian  day:"+dayValue);
             }
         });
 
@@ -120,8 +118,9 @@ public class DataActivity extends Activity {
         hour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.i(TAG, "hour"+String.valueOf(newVal+oldVal));
                 hourValue = newVal;
+
+                Log.i(TAG,"shijian hour:"+hourValue);
             }
         });
 
@@ -150,8 +149,8 @@ public class DataActivity extends Activity {
         min.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.i(TAG, "min" + String.valueOf(newVal + oldVal));
                 minValue = newVal;
+                Log.i(TAG,"shijian  min:"+minValue);
             }
         });
 
@@ -171,21 +170,15 @@ public class DataActivity extends Activity {
         });
 
 
-        mouthValue=mouth.getValue();
-        dayValue=day.getValue();
-        hourValue=hour.getValue();
-        minValue=min.getValue();
-
-
+//        mouthValue=mouth.getValue();
+//        dayValue=day.getValue();
+//        hourValue=hour.getValue();
+//        minValue=min.getValue();
 
         dataAndTime = mouthValue + getResources().getString(R.string.mouth)
                 + dayValue + getResources().getString(R.string.day)
                 + hourValue + getResources().getString(R.string.hour)
                 + minValue + getResources().getString(R.string.minute);
-
-
-
-
         //返回时间和日期
         Intent intent=getIntent();
         intent.putExtra("dataandtime",dataAndTime);
@@ -195,7 +188,11 @@ public class DataActivity extends Activity {
         intent.putExtra("minute", minValue);
         DataActivity.this.setResult(0, intent);
 
+
+
         Log.i(TAG, dataAndTime);
+
+//        DataActivity.this.finish();
 
     }
 

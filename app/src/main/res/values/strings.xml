@@ -17,4 +17,6 @@
     <string name="minute">分</string>
 
     <string name="new_event_data__and_time_show_text">您选择的提醒时间为：</string>
+
+    <string name="next">"下一步</string>
 </resources>

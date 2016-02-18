@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.weezn.remember.MainActivity;
 import com.example.weezn.remember.PageView;
 import com.example.weezn.remember.R;
 
@@ -43,15 +42,6 @@ public class NewEventActivity extends Activity {
     private int mouth, day, hour, minute;
 
 
-//    private DataActivity dataActivity;
-//    private AddressActivity addressActivity;
-//    private EventActivity eventActivity;
-
-//    mouth=dataActivity.getMouthValue();
-//    day=dataActivity.getDayValue();
-//    hour=dataActivity.getHourValue();
-//    minute=dataActivity.getMinValue();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +54,18 @@ public class NewEventActivity extends Activity {
 
 
 
-        Intent intentTimeAndData = new Intent(NewEventActivity.this, DataActivity.class);
-        startActivityForResult(intentTimeAndData, 0);
+        Intent intentEvent = new Intent(NewEventActivity.this, EventActivity.class);
+        startActivityForResult(intentEvent, 2);
+
 
         Intent intentAddress = new Intent(NewEventActivity.this, AddressActivity.class);
         startActivityForResult(intentAddress, 1);
 
-        Intent intentEvent = new Intent(NewEventActivity.this, EventActivity.class);
-        startActivityForResult(intentEvent, 2);
+        Intent intentTimeAndData = new Intent(NewEventActivity.this, DataActivity.class);
+        startActivityForResult(intentTimeAndData, 0);
+
+
+
 
 
         button = (Button) findViewById(R.id.new_event_button);
@@ -83,18 +77,20 @@ public class NewEventActivity extends Activity {
                 //将新建事件显示在主页
                 show();
 
-                finishActivity(0);
-                finishActivity(1);
-                finishActivity(2);
-
                 //设置返回MainActivity的intent
-                Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
+//                Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
+                Intent intent=getIntent();
                 intent.putExtra("mouth", mouth);
                 intent.putExtra("day", day);
                 intent.putExtra("hour", hour);
                 intent.putExtra("minute", minute);
                 NewEventActivity.this.setResult(0, intent);
+//                startActivity(intent);
 
+                finishActivity(0);
+                finishActivity(1);
+                finishActivity(2);
+                NewEventActivity.this.finish();
             }
         });
 
@@ -131,8 +127,9 @@ public class NewEventActivity extends Activity {
     }
 
     private void show() {
+        Log.i(TAG,"show");
         int i;
-        for (i = 0; i < 9; i++) {
+        for ( i = 0; i < 9; i++) {
             if (pageViews[i].isempty()) {
                 pageViews[i].setAddressText(String.format(address));
                 pageViews[i].setTimeText(String.format(dataAndTime));
@@ -185,9 +182,7 @@ public class NewEventActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, dataAndTime);
-        Log.i(TAG, address);
-        Log.i(TAG, event);
+
     }
 
 

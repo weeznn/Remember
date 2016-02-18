@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.weezn.remember.R;
 
@@ -15,22 +16,26 @@ import com.example.weezn.remember.R;
  * @time: 2016/1/30 16:18
  */
 public class EventActivity extends Activity {
-    public final static String TAG="EventActivity";
+    public final static String TAG = "EventActivity";
     private EditText editText;
-    private String event;
+    private String event_txt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG,"oncreat");
+        setContentView(R.layout.new_event);
+
+
+        Log.i(TAG, "oncreat");
         super.onCreate(savedInstanceState);
-        editText=(EditText)findViewById(R.id.event_edittext);
-        event=editText.getText().toString();
+        editText = (EditText) findViewById(R.id.event_edittext);
 
-        Intent intent=getIntent();
-        intent.putExtra("event", event);
-        EventActivity.this.setResult(2, intent);
+        if(" "==editText.getText().toString()){
+            Toast.makeText(this, "事件栏不能为空", Toast.LENGTH_LONG);
+        }else {
+            finish();
+        }
 
-        Log.i(TAG, event);
-//        EventActivity.this.finish();
+
     }
 
     @Override
@@ -38,7 +43,21 @@ public class EventActivity extends Activity {
         super.onStart();
     }
 
-    public String getEvent() {
-        return event;
+    public String getEvent_txt() {
+        return event_txt;
+    }
+
+    /**
+     * 结束本activity 并将数据传输到上级
+     */
+    public void finish(){
+        event_txt = editText.getText().toString();
+
+
+        Intent intent = getIntent();
+        intent.putExtra("event_txt", event_txt);
+        EventActivity.this.setResult(2, intent);
+
+        Log.i(TAG, "事件是："+event_txt);
     }
 }
