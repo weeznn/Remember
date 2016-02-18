@@ -6,13 +6,14 @@
               android:layout_height="match_parent">
     <TextView
 
-        android:textSize="77dp"
+        android:textSize="70dp"
         android:text="@string/new_event_time"
         android:background="@color/BlueGrey"
         android:layout_width="match_parent"
         android:layout_height="100dp"/>
 
     <CalendarView
+        android:id="@+id/calender"
         android:background="@color/BlueGrey"
         android:firstDayOfWeek="7"
         android:unfocusedMonthDateColor="@color/BlueGrey"
@@ -27,6 +28,7 @@
     </CalendarView>
 
     <TimePicker
+        android:id="@+id/timepicker"
         android:background="@color/BlueGrey"
         android:amPmBackgroundColor="@color/BlueGrey"
         android:amPmTextColor="@color/Black"

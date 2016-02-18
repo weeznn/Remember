@@ -1,0 +1,18 @@
+package com.example.weezn.remember.Event;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+/**
+ * AdressActivity
+ *
+ * @author: weezn
+ * @time: 2016/2/19 0:14
+ */
+public class AdressActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+}
