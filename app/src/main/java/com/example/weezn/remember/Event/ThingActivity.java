@@ -10,6 +10,7 @@ import android.os.Bundle;
  * @time: 2016/2/19 0:14
  */
 public class ThingActivity extends Activity {
+    private static final String TAG="ThingActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:background="@color/BlueGrey"
               android:orientation="vertical"
+              android:layout_weight="1"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <TextView
@@ -10,9 +11,29 @@
         android:background="@color/BlueGrey"
         android:layout_width="match_parent"
         android:layout_height="100dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/new_address_edit_text"
+            android:hint="@string/new_event_address_show_text"
+            android:background="@color/Whilt"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="50dp"/>
+        <Button
+            android:id="@+id/location"
+            android:textSize="21dp"
+            android:text="@string/location"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"/>
+    </LinearLayout>
     <com.amap.api.maps2d.MapView
+        android:layout_weight="1"
         android:id="@+id/map"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 

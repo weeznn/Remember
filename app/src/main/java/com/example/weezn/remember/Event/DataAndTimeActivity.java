@@ -14,6 +14,7 @@ import com.example.weezn.remember.R;
  * @time: 2016/2/19 0:13
  */
 public class DataAndTimeActivity extends Activity {
+    private static final String TAG="DataAndTimeActivity";
 
     private TimePicker timePicker = (TimePicker) findViewById(R.id.timepicker);
     private CalendarView calendarView = (CalendarView) findViewById(R.id.calender);
@@ -44,6 +45,8 @@ public class DataAndTimeActivity extends Activity {
                 minuteValue = minute;
             }
         });
+
+
 
     }
 

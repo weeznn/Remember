@@ -52,6 +52,7 @@
         <!--启用高德地图服务-->
         <meta-data android:name="com.amap.api.maps2d"
             android:value="19fdc7b778f0b226ad42ab8f0ae8ae77"/>
+
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

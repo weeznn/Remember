@@ -17,6 +17,9 @@
     <string name="minute">分</string>
 
     <string name="new_event_data__and_time_show_text">您选择的提醒时间为：</string>
+    <string name="new_event_address_show_text">请输入地点</string>
+    <string name="location_edit_empty">请输入有效地址</string>
 
-    <string name="next">"下一步</string>
+    <string name="next">下一步</string>
+    <string name="location">定位</string>
 </resources>
