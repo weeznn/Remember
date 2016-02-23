@@ -18,22 +18,21 @@
         <activity
             android:name=".NewEvent.NewEventActivity"
             android:label="@string/new_event">
+        </activity>
 
+
+        <activity android:name=".Event.DataAndTimeActivity">
 
         </activity>
 
-        <activity android:name=".NewEvent.DataActivity"
-            >
+        <activity android:name=".Event.AdressActivity">
 
         </activity>
 
-        <activity android:name=".NewEvent.AddressActivity">
+        <activity android:name=".Event.ThingActivity">
 
         </activity>
 
-        <activity android:name=".NewEvent.EventActivity">
-
-        </activity>
 
         <receiver
             android:name=".Desk.DeskTopApp"
@@ -50,8 +49,10 @@
 
         </receiver>
         <!--启用高德地图服务-->
-        <meta-data android:name="com.amap.api.maps2d"
-            android:value="19fdc7b778f0b226ad42ab8f0ae8ae77"/>
+        <!--<meta-data android:name="com.amap.api.maps2d"-->
+            <!--android:value="19fdc7b778f0b226ad42ab8f0ae8ae77"/>-->
+        <meta-data android:name="com.amap.api.mapcore2d"
+                   android:value="19fdc7b778f0b226ad42ab8f0ae8ae77"/>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>

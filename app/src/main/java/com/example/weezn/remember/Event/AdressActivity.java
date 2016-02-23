@@ -1,8 +1,10 @@
 package com.example.weezn.remember.Event;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,18 +32,27 @@ import com.example.weezn.remember.R;
  */
 public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeSearchListener {
     private static final String TAG="AdressActivity";
+    final int FLIP_SPACE=100;
+    private String dataandtime="";
 
-    private MapView mapView= (MapView) findViewById(R.id.map);
+    private MapView mapView;
     private AMap aMap;
 
-    private EditText editText= (EditText) findViewById(R.id.new_address_edit_text);
-    private Button button= (Button) findViewById(R.id.location);
+    private EditText editText;
+    private Button button;
 
     private int radiu=80;//地图圆形区域半径
     private LatLonPoint point;//地址的经纬度对象
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //将dataandtime换到下一个intent
+        dataandtime=getIntent().getStringExtra("dataAndtime");
+
+        mapView= (MapView) findViewById(R.id.map);
+        editText= (EditText) findViewById(R.id.new_address_edit_text);
+        button= (Button) findViewById(R.id.location);
+
 
         //必须回掉mapview的oncreat方法
         mapView.onCreate(savedInstanceState);
@@ -158,4 +169,30 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
 //    };
 //    //启动定位
 //    mlocationClient.startLocation();
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int x1=(int)event.getX();
+        try {
+            event.wait(event.getEventTime());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        int x2=(int)event.getX();
+
+        if(x2-x1>FLIP_SPACE){
+            Intent intent =new Intent(AdressActivity.this,ThingActivity.class);
+            intent.putExtra("dataandtime",dataandtime);
+            intent.putExtra("address",editText.getText().toString());
+            startActivity(intent);
+        }else if(x1-x2>FLIP_SPACE){
+            Toast.makeText(this,getResources().getString(R.string.change_new_event_to_right),Toast.LENGTH_SHORT).show();
+        }
+
+
+        AdressActivity.this.finish();
+        return super.onTouchEvent(event);
+    }
+
 }
