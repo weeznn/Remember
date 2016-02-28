@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.weezn.remember.MainActivity;
 import com.example.weezn.remember.PageView;
 import com.example.weezn.remember.R;
 
@@ -55,21 +54,14 @@ public class ThingActivity extends Activity {
         button= (Button) findViewById(R.id.new_thing_button);
 
 
-        thing=editText.getText().toString();
-
-        //得到数据
-        Intent intent=getIntent();
-        dataandtime=intent.getStringExtra("dataandtime");
-        adress=intent.getStringExtra("address");
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                init();
-                show();
-                Intent intent =new Intent(ThingActivity.this, MainActivity.class);
-                startActivity(intent);
-
+                thing=editText.getText().toString();
+                Intent intent =getIntent();
+                intent.putExtra("Event",thing);
+                Log.i(TAG,thing);
+                setResult(3, intent);
 
                 ThingActivity.this.finish();
             }

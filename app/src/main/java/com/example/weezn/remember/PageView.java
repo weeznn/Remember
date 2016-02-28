@@ -77,12 +77,6 @@ public class PageView extends View {
         this.addressText = addressText;
     }
 
-    public String getAddressText() {
-        return addressText;
-    }
-
-
-
 
     public void setTimeText(String timeText) {
         this.timeText = timeText;
@@ -110,9 +104,12 @@ public class PageView extends View {
         paint.setStrokeWidth(1);
         paint.setTextSize(30);
         space=50;
-        canvas.drawText("时间:"+timeText,10,50,paint);
-        canvas.drawText("地点：" + addressText, 10, 50 + space, paint);
-        canvas.drawText("事情："+eventText,10,50+2*space,paint);
+//        canvas.drawText("时间:",10,50,paint);
+        canvas.drawText(timeText,10,50+space,paint);
+//        canvas.drawText("地点：" , 10, 50 + 2*space, paint);
+        canvas.drawText(addressText,10,50+3*space,paint);
+//        canvas.drawText("事情：",10,50+4*space,paint);
+        canvas.drawText(eventText,10,50+5*space,paint);
     }
 
     public boolean isempty() {

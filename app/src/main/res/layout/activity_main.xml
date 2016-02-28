@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_weight="6"
+        android:layout_weight="9"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
@@ -85,80 +85,6 @@
 
     </LinearLayout>
 
-    <!--<TableLayout-->
-        <!--android:id="@+id/TableLayout1"-->
-        <!--android:layout_weight="2"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-
-        <!-->-->
-
-        <!--<TableRow>-->
-            <!--<com.example.weezn.remember.PageView-->
-                <!--android:id="@+id/page_1_1"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"/>-->
-            <!--<com.example.weezn.remember.PageView-->
-                <!--android:id="@+id/page_1_2"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"/>-->
-            <!--<com.example.weezn.remember.PageView-->
-                <!--android:id="@+id/page_1_3"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"/>-->
-
-        <!--</TableRow>-->
-
-    <!--</TableLayout>-->
-
-    <!--<TableLayout-->
-        <!--android:id="@+id/TableLayout2"-->
-        <!--android:layout_weight="2"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!-->-->
-        <!--<TableRow>-->
-            <!--<com.example.weezn.remember.PageView-->
-                <!--android:id="@+id/page_2_1"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"/>-->
-            <!--<com.example.weezn.remember.PageView-->
-                <!--android:id="@+id/page_2_2"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"/>-->
-            <!--<com.example.weezn.remember.PageView-->
-                <!--android:id="@+id/page_2_3"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"/>-->
-
-        <!--</TableRow>-->
-
-    <!--</TableLayout>-->
-
-    <!--<TableLayout-->
-        <!--android:id="@+id/TableLayout3"-->
-        <!--android:layout_weight="2"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!-->-->
-        <!--<TableRow>-->
-            <!--<com.example.weezn.remember.PageView-->
-                <!--android:id="@+id/page_3_1"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"/>-->
-            <!--<com.example.weezn.remember.PageView-->
-                <!--android:id="@+id/page_3_2"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"/>-->
-            <!--<com.example.weezn.remember.PageView-->
-                <!--android:id="@+id/page_3_3"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="match_parent"/>-->
-
-        <!--</TableRow>-->
-
-
-    <!--</TableLayout>-->
 
     <com.example.weezn.remember.ButtonView
         android:background="#668B8B"

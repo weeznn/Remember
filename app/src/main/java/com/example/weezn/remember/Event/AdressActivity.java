@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +34,7 @@ import com.example.weezn.remember.R;
 public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeSearchListener {
     private static final String TAG="AdressActivity";
     final int FLIP_SPACE=100;
-    private String dataandtime="";
+
 
     private MapView mapView;
     private AMap aMap;
@@ -46,8 +47,7 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //将dataandtime换到下一个intent
-        dataandtime=getIntent().getStringExtra("dataAndtime");
+
 
         mapView= (MapView) findViewById(R.id.map);
         editText= (EditText) findViewById(R.id.new_address_edit_text);
@@ -56,6 +56,7 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
 
         //必须回掉mapview的oncreat方法
         mapView.onCreate(savedInstanceState);
+        mapView.onResume();
         init();
 
         //设置使用普通地图
@@ -136,6 +137,10 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
 
     private void GroundOverlayoOption(){}
 
+    /**
+     * 设置半径
+     * @param radiu
+     */
     public void setRadiu(int radiu) {
         this.radiu = radiu;
     }
@@ -173,22 +178,27 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int x1=(int)event.getX();
-        try {
-            event.wait(event.getEventTime());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        int x2=(int)event.getX();
 
-        if(x2-x1>FLIP_SPACE){
-            Intent intent =new Intent(AdressActivity.this,ThingActivity.class);
-            intent.putExtra("dataandtime",dataandtime);
-            intent.putExtra("address",editText.getText().toString());
-            startActivity(intent);
-        }else if(x1-x2>FLIP_SPACE){
-            Toast.makeText(this,getResources().getString(R.string.change_new_event_to_right),Toast.LENGTH_SHORT).show();
-        }
+        Intent intent=getIntent();
+        intent.putExtra("Address",editText.getText().toString());
+        Log.i(TAG, editText.getText().toString());
+        Log.i(TAG,"地址码"+point.getLatitude()+point.getLongitude());
+        setResult(2,intent);
+//        int x1=(int)event.getX();
+//        try {
+//            event.wait(event.getEventTime());
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        int x2=(int)event.getX();
+//
+//        if(x2-x1>FLIP_SPACE){
+//            Intent intent =new Intent(AdressActivity.this,ThingActivity.class);
+//            intent.putExtra("address",editText.getText().toString());
+//            startActivity(intent);
+//        }else if(x1-x2>FLIP_SPACE){
+//            Toast.makeText(this,getResources().getString(R.string.change_new_event_to_right),Toast.LENGTH_SHORT).show();
+//        }
 
 
         AdressActivity.this.finish();
