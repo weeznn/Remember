@@ -50,6 +50,7 @@ public class ThingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.newthing);
         editText= (EditText) findViewById(R.id.new_thing_text);
         button= (Button) findViewById(R.id.new_thing_button);
 
@@ -63,7 +64,7 @@ public class ThingActivity extends Activity {
                 Log.i(TAG,thing);
                 setResult(3, intent);
 
-                ThingActivity.this.finish();
+//                ThingActivity.this.finish();
             }
         });
 

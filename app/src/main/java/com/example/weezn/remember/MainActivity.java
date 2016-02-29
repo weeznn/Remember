@@ -9,6 +9,7 @@ import android.view.View;
 import com.example.weezn.remember.Event.AdressActivity;
 import com.example.weezn.remember.Event.DataAndTimeActivity;
 import com.example.weezn.remember.Event.ThingActivity;
+import com.example.weezn.remember.NewEvent.NewEventActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,17 +49,27 @@ public class MainActivity extends AppCompatActivity {
         buttunView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
-//                startActivityForResult(intent, 0);
+                Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
+                startActivityForResult(intent, 0);
 
-                Intent Data=new Intent(MainActivity.this, DataAndTimeActivity.class);
-                startActivityForResult(Data,1);
+
+            }
+        });
+
+        buttunView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                Intent Thing=new Intent(MainActivity.this, ThingActivity.class);
+                startActivityForResult(Thing,3);
 
                 Intent Address=new Intent(MainActivity.this, AdressActivity.class);
                 startActivityForResult(Address,2);
 
-                Intent Thing=new Intent(MainActivity.this, ThingActivity.class);
-                startActivityForResult(Thing,3);
+                Intent Data=new Intent(MainActivity.this, DataAndTimeActivity.class);
+                startActivityForResult(Data,1);
+
+                return false;
             }
         });
 
@@ -95,8 +106,12 @@ public class MainActivity extends AppCompatActivity {
             case 3:
                 Bundle thing=intent.getExtras();
                 event=thing.getString("Event");
+//                finishActivity(3);
+//                finishActivity(2);
+//                finishActivity(1);
                 break;
         }
+
     }
 
     private void show() {

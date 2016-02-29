@@ -9,7 +9,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+           android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -17,19 +17,23 @@
         </activity>
         <activity
             android:name=".NewEvent.NewEventActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/new_event">
         </activity>
 
 
-        <activity android:name=".Event.DataAndTimeActivity">
+        <activity android:name=".Event.DataAndTimeActivity"
+                  android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
 
-        <activity android:name=".Event.AdressActivity">
+        <activity android:name=".Event.AdressActivity"
+                  android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
 
-        <activity android:name=".Event.ThingActivity">
+        <activity android:name=".Event.ThingActivity"
+                  android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
 

@@ -38,7 +38,7 @@ public class DataAndTimeActivity extends Activity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 yearValue = year;
-                monthValue = month;
+                monthValue = month+1;
                 dayValue = dayOfMonth;
             }
         });
@@ -51,14 +51,14 @@ public class DataAndTimeActivity extends Activity {
                 minuteValue = minute;
             }
         });
-
-
+        Log.i(TAG,"oncreat over");
     }
 
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.i(TAG, "touchevent");
+
 
         Intent intent=getIntent();
         intent.putExtra("DataAndTime",monthValue+getResources().getString(R.string.mouth)
@@ -93,6 +93,7 @@ public class DataAndTimeActivity extends Activity {
 
 
         DataAndTimeActivity.this.finish();
+        Log.i(TAG,"touchevent over");
         return super.onTouchEvent(event);
     }
 
