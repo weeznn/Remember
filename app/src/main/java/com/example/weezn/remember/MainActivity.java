@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public boolean onLongClick(View v) {
 
-                Intent Thing=new Intent(MainActivity.this, ThingActivity.class);
-                startActivityForResult(Thing,3);
+                Intent Thing = new Intent(MainActivity.this, ThingActivity.class);
+                startActivityForResult(Thing, 3);
 
-                Intent Address=new Intent(MainActivity.this, AdressActivity.class);
-                startActivityForResult(Address,2);
+                Intent Address = new Intent(MainActivity.this, AdressActivity.class);
+                startActivityForResult(Address, 2);
 
-                Intent Data=new Intent(MainActivity.this, DataAndTimeActivity.class);
-                startActivityForResult(Data,1);
+                Intent Data = new Intent(MainActivity.this, DataAndTimeActivity.class);
+                startActivityForResult(Data, 1);
 
                 return false;
             }
@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity  {
                 dayValue = data.getInt("Day");
                 hourValue = data.getInt("Hour");
                 minValue = data.getInt("Minute");
+                show();
                 break;
             case 1:
                 Bundle time=intent.getExtras();
@@ -109,9 +110,10 @@ public class MainActivity extends AppCompatActivity  {
             case 3:
                 Bundle thing=intent.getExtras();
                 event=thing.getString("Event");
+                show();
                 break;
         }
-        show();
+
 
     }
 

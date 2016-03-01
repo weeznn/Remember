@@ -60,6 +60,7 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
 
     private boolean b;//地图截取成功与否
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "oncreat");
@@ -106,11 +107,13 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
                 //截取地图窗口
                 getMapScreenShot(mapView);
 
+
                 Intent intent = getIntent();
                 intent.putExtra("Latitude", point.getLatitude());
                 intent.putExtra("Longitude", point.getLongitude());
                 intent.putExtra("Address", address);
-                setResult(2);
+                Log.i(TAG, String.valueOf(point.getLatitude()) + String.valueOf(point.getLongitude()));
+                setResult(2,intent);
                 AdressActivity.this.finish();
             }
         });
@@ -212,6 +215,7 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
 
     @Override
     public void onMapScreenShot(Bitmap bitmap) {
+        Log.i(TAG,"onMapScreenShot");
         //格式化时间
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         //得到sd根目录的路径
