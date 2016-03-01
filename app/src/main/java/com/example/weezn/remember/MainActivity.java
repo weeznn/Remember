@@ -11,7 +11,7 @@ import com.example.weezn.remember.Event.DataAndTimeActivity;
 import com.example.weezn.remember.Event.ThingActivity;
 import com.example.weezn.remember.NewEvent.NewEventActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     public final static String TAG = "MainActivity";
     private ButtonView buttunView;
@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     private PageView[] pageViews;
 
-    private int mouthValue, dayValue, hourValue, minValue;
+    private int mouthValue, dayValue, hourValue, minValue;//时间
+    private double Latitude,Longitude;//经纬度
+
     private String dataAndTime = "";
     private String address = "";
     private String event = "";
@@ -89,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 dayValue = data.getInt("Day");
                 hourValue = data.getInt("Hour");
                 minValue = data.getInt("Minute");
-                show();
                 break;
             case 1:
                 Bundle time=intent.getExtras();
@@ -102,15 +103,15 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 Bundle add=intent.getExtras();
                 address=add.getString("Address");
+                Latitude=add.getDouble("Latitude");
+                Longitude=add.getDouble("Longitude");
                 break;
             case 3:
                 Bundle thing=intent.getExtras();
                 event=thing.getString("Event");
-//                finishActivity(3);
-//                finishActivity(2);
-//                finishActivity(1);
                 break;
         }
+        show();
 
     }
 
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "i==9");
         }
     }
+
 
 
 }

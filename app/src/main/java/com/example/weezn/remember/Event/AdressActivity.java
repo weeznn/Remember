@@ -2,10 +2,11 @@ package com.example.weezn.remember.Event;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,13 +29,18 @@ import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.example.weezn.remember.R;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * AdressActivity
  *
  * @author: weezn
  * @time: 2016/2/19 0:14
  */
-public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeSearchListener {
+public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeSearchListener, AMap.OnMapScreenShotListener {
     private static final String TAG = "AdressActivity";
     final int FLIP_SPACE = 100;
 
@@ -45,9 +51,14 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
 
     private EditText editText;
     private Button button;
+    private Button next;
 
     private int radiu = 70;//地图圆形区域半径
     private LatLonPoint point;//地址的经纬度对象
+
+    private String address;
+
+    private boolean b;//地图截取成功与否
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +70,7 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         mapView = (MapView) findViewById(R.id.map);
         editText = (EditText) findViewById(R.id.new_address_edit_text);
         button = (Button) findViewById(R.id.location);
+        next = (Button) findViewById(R.id.address_next);
 
 
         //必须回掉mapview的oncreat方法
@@ -84,15 +96,37 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
 
             }
         });
+
+
+
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //截取地图窗口
+                getMapScreenShot(mapView);
+
+                Intent intent = getIntent();
+                intent.putExtra("Latitude", point.getLatitude());
+                intent.putExtra("Longitude", point.getLongitude());
+                intent.putExtra("Address", address);
+                setResult(2);
+                AdressActivity.this.finish();
+            }
+        });
+
         Log.i(TAG, "oncreat over");
     }
 
+
     /**
-     * 提示关键字不合理
+     * 对地图进行截屏
      */
-    private void locationfail() {
-        Toast.makeText(this, getResources().getString(R.string.location_edit_empty), Toast.LENGTH_LONG).show();
+    public void getMapScreenShot(View v) {
+        aMap.getMapScreenShot(this);
+        aMap.invalidate();// 刷新地图
     }
+
 
     /**
      * 初始化amap对象
@@ -140,10 +174,12 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         GeocodeAddress geocodeAddress = geocodeResult.getGeocodeAddressList().get(0);
         //获取解析得到的经纬度
         point = geocodeAddress.getLatLonPoint();
+        //获取得到的地址详细信息
+        address = editText.getText().toString();
         LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
         //创见一个设置经纬度的cameraupdata
         CameraUpdate cameraUpdate = CameraUpdateFactory.changeLatLng(latLng);
-        CameraUpdate cameraUpdate1=CameraUpdateFactory.newLatLngZoom(latLng,17);
+        CameraUpdate cameraUpdate1 = CameraUpdateFactory.newLatLngZoom(latLng, 17);
         //更新地图的显示区域
         aMap.moveCamera(cameraUpdate1);
         //创建一个GroundOverlayOptions (用于包装图片)
@@ -157,7 +193,8 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
                         //                .fillColor(0X80ffff00)//填充颜色
                 .radius(radiu)    //半径
                 .strokeWidth(3)   //线条宽度
-                .strokeColor(Color.BLUE);//线条颜色
+                .strokeColor(Color.BLUE);//
+        aMap.addGroundOverlay(groundOverlayOptions);
         aMap.addCircle(circleOptions);
     }
 
@@ -171,6 +208,27 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
      */
     public void setRadiu(int radiu) {
         this.radiu = radiu;
+    }
+
+    @Override
+    public void onMapScreenShot(Bitmap bitmap) {
+        //格式化时间
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        //得到sd根目录的路径
+//        File sdCard = Environment.getExternalStorageDirectory();
+        try {
+            //将图片保存到sd根目录
+            FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory() + "/Remember_"
+                    + simpleDateFormat.format(new Date()) + ".png");
+            b = bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            //强制将缓冲区的数据发送，避免读不倒数据的情况
+            fos.flush();
+            //关闭流
+            fos.close();
+            picSave();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -204,17 +262,25 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
     //    mlocationClient.startLocation();
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    /**
+     * 提示地图截取
+     */
+    private void picSave() {
+        if (b) {
+            Toast.makeText(this, getResources().getString(R.string.pic_save_right), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.pic_save_wrong), Toast.LENGTH_SHORT).show();
 
-        Intent intent = getIntent();
-        intent.putExtra("Address", editText.getText().toString());
-        Log.i(TAG, editText.getText().toString());
-        Log.i(TAG, "地址码" + point.getLatitude() + point.getLongitude());
-        setResult(2, intent);
-
-        AdressActivity.this.finish();
-        return super.onTouchEvent(event);
+        }
     }
+
+    /**
+     * 提示关键字不合理
+     */
+    private void locationfail() {
+        Toast.makeText(this, getResources().getString(R.string.location_edit_empty), Toast.LENGTH_LONG).show();
+    }
+
+
 
 }

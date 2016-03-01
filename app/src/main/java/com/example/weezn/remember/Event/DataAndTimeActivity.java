@@ -72,25 +72,6 @@ public class DataAndTimeActivity extends Activity {
         Log.i(TAG,""+monthValue+dayValue+hourValue+minuteValue);
         setResult(1, intent);
 
-//        int x1=(int)event.getX();
-//        try {
-//            event.wait(event.getEventTime());
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        int x2=(int)event.getX();
-//
-//        if(x2-x1>FLIP_SPACE){
-//            Intent intent =new Intent(DataAndTimeActivity.this,AdressActivity.class);
-//            intent.putExtra("dataAndtime",monthValue+getResources().getString(R.string.mouth)
-//                                            +dayValue+getResources().getString(R.string.day)
-//                                            +hourValue+getResources().getString(R.string.hour)
-//                                            +minuteValue+getResources().getString(R.string.minute));
-//            startActivity(intent);
-//        }else if(x1-x2>FLIP_SPACE){
-//            Toast.makeText(this,getResources().getString(R.string.change_new_event_to_right),Toast.LENGTH_SHORT).show();
-//        }
-
 
         DataAndTimeActivity.this.finish();
         Log.i(TAG,"touchevent over");

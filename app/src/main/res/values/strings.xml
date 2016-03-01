@@ -24,4 +24,7 @@
 
     <string name="next">下一步</string>
     <string name="location">定位</string>
+
+    <string name="pic_save_right">地图截取成功</string>
+    <string name="pic_save_wrong">地图截取失败</string>
 </resources>

@@ -50,8 +50,6 @@ public class NewEventActivity extends Activity {
         Log.i(TAG, "oncreat");
 
         data();
-//        address();
-//        thing();
 
         button = (Button) findViewById(R.id.new_event_button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -273,36 +271,7 @@ public class NewEventActivity extends Activity {
                 + minValue + this.getResources().getString(R.string.minute), Toast.LENGTH_SHORT).show();
     }
 
-//    //address 部分
-//
-//    private void address() {
-//
-//        Log.i(TAG, "address");
-//        editText_address = (EditText) findViewById(R.id.address_edittext);
-//
-//        if (" " == editText_address.getText().toString()) {
-//            Toast.makeText(this, "地址栏不能为空", Toast.LENGTH_LONG).show();
-//        } else {
-//            address = editText_address.getText().toString();
-//        }
-//
-//        Log.i(TAG, address + "address over");
-//    }
-//
-//
-//    //事件部分
-//    private void thing() {
-//        Log.i(TAG, "thing");
-//        editText_thing = (EditText) findViewById(R.id.event_edittext);
-//
-//
-//        if (" " == editText_thing.getText().toString()) {
-//            Toast.makeText(this, "事件栏不能为空", Toast.LENGTH_LONG);
-//        } else {
-//            event_txt = editText_thing.getText().toString();
-//        }
-//        Log.i(TAG, event_txt + "thing over");
-//    }
+
 
 
 }
