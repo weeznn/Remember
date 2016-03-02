@@ -36,7 +36,14 @@
                   android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
+        <!--<activity android:name=".Event.CityListActivity"-->
+            <!--android:theme="@style/Animation.AppCompat.Dialog">-->
 
+        <!--</activity>-->
+
+        <service android:name=".Event.Location_service"/>
+
+        <!-- 定义一个broadcaReceiver接受系统开机广播-->
 
         <receiver
             android:name=".Desk.DeskTopApp"

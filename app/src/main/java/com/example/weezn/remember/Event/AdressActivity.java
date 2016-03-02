@@ -1,16 +1,19 @@
 package com.example.weezn.remember.Event;
 
 import android.app.Activity;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps2d.AMap;
@@ -44,7 +47,7 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
     private static final String TAG = "AdressActivity";
     final int FLIP_SPACE = 100;
 
-    private TextView textView;
+    private Button city;
 
     private MapView mapView;
     private AMap aMap;
@@ -56,9 +59,27 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
     private int radiu = 70;//地图圆形区域半径
     private LatLonPoint point;//地址的经纬度对象
 
+    private String cityName="北京",cityCode="010";
+
+
     private String address;
 
     private boolean b;//地图截取成功与否
+
+    private Location_service.locationBinder binder;
+    //监听访问者与service之间的链接情况
+    private ServiceConnection conn=new ServiceConnection() {
+        //链接成时
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            binder=(Location_service.locationBinder)service;
+        }
+        //链接失败时
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            locationfail();
+        }
+    };
 
 
     @Override
@@ -67,11 +88,26 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.address);
 
-        textView = (TextView) findViewById(R.id.city);
+        city = (Button) findViewById(R.id.city);
         mapView = (MapView) findViewById(R.id.map);
         editText = (EditText) findViewById(R.id.new_address_edit_text);
         button = (Button) findViewById(R.id.location);
         next = (Button) findViewById(R.id.address_next);
+
+
+        //启动service获取定位的城市名字与citycode
+        final Intent intent=new Intent(AdressActivity.this,Location_service.class);
+        bindService(intent, conn, Service.BIND_AUTO_CREATE);
+
+//        //手动获取城市
+//        city.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v){
+//                Intent intent1=new Intent(AdressActivity.this,CityListActivity.class);
+//                startActivityForResult(intent1,0);
+//            }
+//        });
+
 
 
         //必须回掉mapview的oncreat方法
@@ -79,9 +115,20 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         mapView.onResume();
         init();
 
+        //城市选择
+        city.setText(cityName);
+        city.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
         //设置使用普通地图
         aMap.setMapType(AMap.MAP_TYPE_NORMAL);
 
+        //反向地址解析与定位
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +138,7 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
                 }
                 GeocodeSearch geocodeSearch = new GeocodeSearch(AdressActivity.this);
                 geocodeSearch.setOnGeocodeSearchListener(AdressActivity.this);
-                GeocodeQuery query = new GeocodeQuery(editText.getText().toString(), "010");
+                GeocodeQuery query = new GeocodeQuery(editText.getText().toString(), cityCode);
                 //将中文转换为地址编码
                 geocodeSearch.getFromLocationNameAsyn(query);
 
@@ -99,8 +146,7 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         });
 
 
-
-
+        //地图截取
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +167,15 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         Log.i(TAG, "oncreat over");
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==0&&resultCode==0){
+            Bundle bundle=data.getExtras();
+            cityName=bundle.getString("CityName");
+            cityCode=bundle.getString("CityCode");
+        }
+    }
 
     /**
      * 对地图进行截屏
@@ -285,6 +340,14 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         Toast.makeText(this, getResources().getString(R.string.location_edit_empty), Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * 提示 无法获取定位服务
+     */
+
+    private void locationFail(){
+        Toast.makeText(this,getResources().getString(R.string.location_fail),Toast.LENGTH_LONG).show();
+
+    }
 
 
 }

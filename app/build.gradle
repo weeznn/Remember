@@ -24,4 +24,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile files('lids/AMap_2DMap_V2.8.1_20160202.jar')
     compile files('lids/AMap_Search_V2.8.0_20160105.jar')
+    compile files('lids/AMap_Location_v2.3.0_20160112.jar')
 }

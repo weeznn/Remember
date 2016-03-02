@@ -17,10 +17,9 @@
             android:layout_weight="7"
             android:layout_width="0dp"
             android:layout_height="100dp"/>
-        <TextView
+        <Button
             android:id="@+id/city"
             android:textSize="30dp"
-            android:text="北京"
             android:gravity="center"
             android:background="@color/BlueGrey"
             android:layout_weight="6"

@@ -1,6 +1,8 @@
 package com.example.weezn.remember;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity  {
     private String dataAndTime = "";
     private String address = "";
     private String event = "";
+
+    private LocationManager locationManager;//GPS定位
+    private float radius=1;//临近警告半径
 
 
     @Override
@@ -106,6 +111,7 @@ public class MainActivity extends AppCompatActivity  {
                 address=add.getString("Address");
                 Latitude=add.getDouble("Latitude");
                 Longitude=add.getDouble("Longitude");
+                fence();
                 break;
             case 3:
                 Bundle thing=intent.getExtras();
@@ -154,5 +160,11 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
+    public void fence(){
+        locationManager= (LocationManager) getSystemService(LOCATION_SERVICE);
+        Intent intent=new Intent(this,FenceReceive.class);
+        PendingIntent pendingIntent=PendingIntent.getBroadcast(this,-1,intent,0);
+        locationManager.addProximityAlert(Latitude,Longitude,radius,-1,pendingIntent);
+    }
 
 }
