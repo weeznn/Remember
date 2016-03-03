@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.util.Log;
 
 /**
  * FenceReceive
@@ -13,6 +14,7 @@ import android.location.LocationManager;
  */
 public class FenceReceive extends BroadcastReceiver {
 
+    public final static String TAG="FenceReceive";
     @Override
     public void onReceive(Context context, Intent intent) {
 //        Intent Tintent = new Intent(context, FenceService.class);
@@ -20,6 +22,7 @@ public class FenceReceive extends BroadcastReceiver {
         boolean isEnter=intent.getBooleanExtra(LocationManager.KEY_PROXIMITY_ENTERING,false);
         if(isEnter){
             //系统震动服务
+            Log.i(TAG,"待完善");
         }else{
 
         }

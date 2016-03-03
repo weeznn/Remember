@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
+    //GPS设置地理围栏
     public void fence(){
         locationManager= (LocationManager) getSystemService(LOCATION_SERVICE);
         Intent intent=new Intent(this,FenceReceive.class);

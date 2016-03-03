@@ -1,21 +1,21 @@
 package com.example.weezn.remember.Event;
 
 import android.app.Activity;
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdate;
 import com.amap.api.maps2d.CameraUpdateFactory;
@@ -66,20 +66,35 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
 
     private boolean b;//地图截取成功与否
 
-    private Location_service.locationBinder binder;
-    //监听访问者与service之间的链接情况
-    private ServiceConnection conn=new ServiceConnection() {
-        //链接成时
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            binder=(Location_service.locationBinder)service;
-        }
-        //链接失败时
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            locationfail();
-        }
-    };
+    private Date date;
+
+
+    /**
+     * 定位获取城市信息部分
+     */
+    //声明AMapLocationClient类对象  定位服务类。此类提供单次定位、持续定位、地理围栏、最后位置相关功能
+    private AMapLocationClient mLocationClient =null;
+    //声明定位回调监听器;
+
+    //声明mLocationOption对象      定位参数设置，通过这个类可以对定位的相关参数进行设置
+    private AMapLocationClientOption mLocationOption = null;
+
+
+//    private Location_service.locationBinder binder;
+//    //监听访问者与service之间的链接情况
+//    private ServiceConnection conn=new ServiceConnection() {
+//        //链接成时
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            binder=(Location_service.locationBinder)service;
+//            binder.
+//        }
+//        //链接失败时
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            locationfail();
+//        }
+//    };
 
 
     @Override
@@ -95,9 +110,53 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         next = (Button) findViewById(R.id.address_next);
 
 
-        //启动service获取定位的城市名字与citycode
-        final Intent intent=new Intent(AdressActivity.this,Location_service.class);
-        bindService(intent, conn, Service.BIND_AUTO_CREATE);
+//        //启动service获取定位的城市名字与citycode
+//        final Intent intent=new Intent(AdressActivity.this,Location_service.class);
+//        bindService(intent, conn, Service.BIND_AUTO_CREATE);
+//
+//        unbindService(conn);
+
+
+        initLocation();
+        //设置定位回调监听
+        mLocationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation amapLocation) {
+
+                if (amapLocation != null) {
+                    if (amapLocation.getErrorCode() == 0) {
+                        //定位成功回调信息，设置相关消息
+                        amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                        amapLocation.getLatitude();//获取纬度
+                        amapLocation.getLongitude();//获取经度
+                        amapLocation.getAccuracy();//获取精度信息
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        date = new Date(amapLocation.getTime());
+                        df.format(date);//定位时间
+                        amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                        amapLocation.getCountry();//国家信息
+                        amapLocation.getProvince();//省信息
+                        cityName = amapLocation.getCity();//城市信息
+                        amapLocation.getDistrict();//城区信息
+                        amapLocation.getStreet();//街道信息
+                        amapLocation.getStreetNum();//街道门牌号信息
+                        cityCode = amapLocation.getCityCode();//城市编码
+                        amapLocation.getAdCode();//地区编码
+                    } else {
+                        //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                        Log.i("AmapError", "location Error, ErrCode:"
+                                + amapLocation.getErrorCode() + ", errInfo:"
+                                + amapLocation.getErrorInfo());
+                    }
+                }
+                Log.i(TAG, cityName);
+                city.setText(cityName);
+                mLocationClient.stopLocation();//停止定位
+                mLocationClient.onDestroy();//销毁定位客户端
+            }
+        });
+//        city.setText(cityName);
+
 
 //        //手动获取城市
 //        city.setOnClickListener(new View.OnClickListener() {
@@ -115,32 +174,25 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         mapView.onResume();
         init();
 
-        //城市选择
-        city.setText(cityName);
-        city.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
         //设置使用普通地图
         aMap.setMapType(AMap.MAP_TYPE_NORMAL);
 
-        //反向地址解析与定位
+        //地址解析与定位
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String location = editText.getText().toString();
                 if (0 == location.length()) {
                     locationfail();
+                }else{
+                    GeocodeSearch geocodeSearch = new GeocodeSearch(AdressActivity.this);
+                    geocodeSearch.setOnGeocodeSearchListener(AdressActivity.this);
+                    GeocodeQuery query = new GeocodeQuery(editText.getText().toString(), cityCode);
+                    //将中文转换为地址编码
+                    geocodeSearch.getFromLocationNameAsyn(query);
                 }
-                GeocodeSearch geocodeSearch = new GeocodeSearch(AdressActivity.this);
-                geocodeSearch.setOnGeocodeSearchListener(AdressActivity.this);
-                GeocodeQuery query = new GeocodeQuery(editText.getText().toString(), cityCode);
-                //将中文转换为地址编码
-                geocodeSearch.getFromLocationNameAsyn(query);
 
             }
         });
@@ -159,23 +211,27 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
                 intent.putExtra("Longitude", point.getLongitude());
                 intent.putExtra("Address", address);
                 Log.i(TAG, String.valueOf(point.getLatitude()) + String.valueOf(point.getLongitude()));
-                setResult(2,intent);
+                setResult(2, intent);
                 AdressActivity.this.finish();
             }
         });
 
+
+
+
+
         Log.i(TAG, "oncreat over");
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==0&&resultCode==0){
-            Bundle bundle=data.getExtras();
-            cityName=bundle.getString("CityName");
-            cityCode=bundle.getString("CityCode");
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode==0&&resultCode==0){
+//            Bundle bundle=data.getExtras();
+//            cityName=bundle.getString("CityName");
+//            cityCode=bundle.getString("CityCode");
+//        }
+//    }
 
     /**
      * 对地图进行截屏
@@ -236,7 +292,6 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         address = editText.getText().toString();
         LatLng latLng = new LatLng(point.getLatitude(), point.getLongitude());
         //创见一个设置经纬度的cameraupdata
-        CameraUpdate cameraUpdate = CameraUpdateFactory.changeLatLng(latLng);
         CameraUpdate cameraUpdate1 = CameraUpdateFactory.newLatLngZoom(latLng, 17);
         //更新地图的显示区域
         aMap.moveCamera(cameraUpdate1);
@@ -340,13 +395,45 @@ public class AdressActivity extends Activity implements GeocodeSearch.OnGeocodeS
         Toast.makeText(this, getResources().getString(R.string.location_edit_empty), Toast.LENGTH_LONG).show();
     }
 
+
+//
+//    /**
+//     * 提示 无法获取定位服务
+//     */
+//
+//    private void locationFail(){
+//        Toast.makeText(this,getResources().getString(R.string.location_fail),Toast.LENGTH_LONG).show();
+//
+//    }
+
+
     /**
-     * 提示 无法获取定位服务
+     * 初始化定位
      */
+    private void initLocation(){
+        //初始化定位
+        mLocationClient = new AMapLocationClient(getApplicationContext());
 
-    private void locationFail(){
-        Toast.makeText(this,getResources().getString(R.string.location_fail),Toast.LENGTH_LONG).show();
-
+        //初始化定位参数
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否只定位一次,默认为false
+        mLocationOption.setOnceLocation(true);
+        //设置是否强制刷新WIFI，默认为强制刷新
+        mLocationOption.setWifiActiveScan(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        //设置定位间隔,单位毫秒,默认为2000ms
+        mLocationOption.setInterval(2000);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+        Toast.makeText(this,"定位中",Toast.LENGTH_SHORT).show();
+        Log.i(TAG,"location ing");
     }
 
 

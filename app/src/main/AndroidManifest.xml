@@ -41,7 +41,8 @@
 
         <!--</activity>-->
 
-        <service android:name=".Event.Location_service"/>
+        <service android:name="com.amap.api.location.APSService"></service>
+
 
         <!-- 定义一个broadcaReceiver接受系统开机广播-->
 
